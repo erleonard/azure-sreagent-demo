@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cpu-stress-test
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cpu-stress
+  template:
+    metadata:
+      labels:
+        app: cpu-stress
+    spec:
+      containers:
+      - name: cpu-stress
+        image: ubuntu:latest
+        command: ["/bin/sh"]
+        args:
+          - -c
+          - |
+            apt-get update && apt-get install -y stress-ng
+            sleep 60  # Wait for a minute before starting the stress test
+            stress-ng --cpu 4 --cpu-load 60 --timeout 0
+        resources:
+          requests:
+            cpu: "2000m"
+            memory: "100Mi"
+          limits:
+            cpu: "4000m"
+            memory: "200Mi"
+      # Spread pods across nodes
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: distributed-cpu-load
+      nodeSelector:
+        kubernetes.io/os: linux
