@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - 'copilot/fix-*'  # Temporary: allow testing on fix branches
   workflow_dispatch:
 
 jobs:
