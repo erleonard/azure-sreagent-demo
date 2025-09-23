@@ -1,8 +1,12 @@
 # Build stage
 FROM mcr.microsoft.com/openjdk/jdk:21-azurelinux AS builder
+
 WORKDIR /app
 COPY . .
-RUN ./mvnw clean package -DskipTests || mvn clean package -DskipTests
+
+# Fix maven wrapper permissions and run build
+RUN chmod +x ./mvnw && \
+    ./mvnw clean package -DskipTests
 
 # Runtime stage
 FROM mcr.microsoft.com/openjdk/jdk:21-azurelinux
