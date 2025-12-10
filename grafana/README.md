@@ -179,7 +179,7 @@ If using Grafana provisioning or infrastructure as code:
 | OOMKilled | count > 0 | 1 minute | Critical |
 | ImagePullBackOff | count > 0 | 5 minutes | Warning |
 | Pending Pod | count > 0 | 10 minutes | Warning |
-| High Restart Rate | rate > 0.5/min | 5 minutes | Critical |
+| High Restart Rate | rate > 0.5 restarts/sec (over 5m window) | 5 minutes | Critical |
 
 ## Email Notification Content
 

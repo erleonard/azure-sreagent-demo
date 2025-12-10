@@ -97,42 +97,7 @@
         }
       ],
       "title": "Pods in CrashLoopBackOff",
-      "type": "gauge",
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "5m",
-        "frequency": "1m",
-        "handler": 1,
-        "name": "CrashLoopBackOff Alert",
-        "noDataState": "no_data",
-        "notifications": []
-      }
+      "type": "gauge"
     },
     {
       "datasource": {
@@ -196,42 +161,7 @@
         }
       ],
       "title": "Containers OOMKilled",
-      "type": "gauge",
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "1m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "1m",
-        "frequency": "1m",
-        "handler": 1,
-        "name": "OOMKilled Alert",
-        "noDataState": "no_data",
-        "notifications": []
-      }
+      "type": "gauge"
     },
     {
       "datasource": {
@@ -295,42 +225,7 @@
         }
       ],
       "title": "Pods in ImagePullBackOff",
-      "type": "gauge",
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "5m",
-        "frequency": "1m",
-        "handler": 1,
-        "name": "ImagePullBackOff Alert",
-        "noDataState": "no_data",
-        "notifications": []
-      }
+      "type": "gauge"
     },
     {
       "datasource": {
@@ -394,42 +289,7 @@
         }
       ],
       "title": "Pods Pending",
-      "type": "gauge",
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "10m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "10m",
-        "frequency": "1m",
-        "handler": 1,
-        "name": "Pending Pod Alert",
-        "noDataState": "no_data",
-        "notifications": []
-      }
+      "type": "gauge"
     },
     {
       "datasource": {
@@ -493,42 +353,7 @@
         }
       ],
       "title": "High Restart Rate (Liveness Failures)",
-      "type": "gauge",
-      "alert": {
-        "alertRuleTags": {},
-        "conditions": [
-          {
-            "evaluator": {
-              "params": [
-                0
-              ],
-              "type": "gt"
-            },
-            "operator": {
-              "type": "and"
-            },
-            "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
-            },
-            "reducer": {
-              "params": [],
-              "type": "last"
-            },
-            "type": "query"
-          }
-        ],
-        "executionErrorState": "alerting",
-        "for": "5m",
-        "frequency": "1m",
-        "handler": 1,
-        "name": "High Restart Rate Alert",
-        "noDataState": "no_data",
-        "notifications": []
-      }
+      "type": "gauge"
     },
     {
       "datasource": {
