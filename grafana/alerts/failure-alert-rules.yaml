@@ -1,0 +1,116 @@
+apiVersion: 1
+groups:
+  - orgId: 1
+    name: AKS Failure Alerts
+    folder: AKS Monitoring
+    interval: 1m
+    rules:
+      - uid: crashloop-alert
+        title: Pod CrashLoopBackOff Detected
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: count(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"} == 1) or vector(0)
+              instant: true
+        noDataState: OK
+        execErrState: Error
+        for: 5m
+        annotations:
+          summary: "Pod is in CrashLoopBackOff state"
+          description: "One or more pods are in CrashLoopBackOff state and may need attention."
+        labels:
+          severity: critical
+          scenario: crashloop
+
+      - uid: oomkilled-alert
+        title: Container OOMKilled Detected
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: count(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"} == 1) or vector(0)
+              instant: true
+        noDataState: OK
+        execErrState: Error
+        for: 1m
+        annotations:
+          summary: "Container was killed due to Out of Memory"
+          description: "A container was terminated because it exceeded its memory limit."
+        labels:
+          severity: critical
+          scenario: oom
+
+      - uid: imagepull-alert
+        title: ImagePullBackOff Detected
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: count(kube_pod_container_status_waiting_reason{reason="ImagePullBackOff"} == 1) or vector(0)
+              instant: true
+        noDataState: OK
+        execErrState: Error
+        for: 5m
+        annotations:
+          summary: "Pod cannot pull container image"
+          description: "One or more pods are unable to pull their container image."
+        labels:
+          severity: warning
+          scenario: imagepull
+
+      - uid: pending-pod-alert
+        title: Pod Pending Too Long
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: count(kube_pod_status_phase{phase="Pending"} == 1) or vector(0)
+              instant: true
+        noDataState: OK
+        execErrState: Error
+        for: 10m
+        annotations:
+          summary: "Pod has been pending for too long"
+          description: "A pod has been in Pending state for over 10 minutes, possibly due to resource constraints."
+        labels:
+          severity: warning
+          scenario: pending
+
+      - uid: high-restart-alert
+        title: High Pod Restart Rate (Liveness Failure)
+        condition: A
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: count(rate(kube_pod_container_status_restarts_total[5m]) > 0.5) or vector(0)
+              instant: true
+        noDataState: OK
+        execErrState: Error
+        for: 5m
+        annotations:
+          summary: "Pod has high restart rate"
+          description: "A pod is restarting frequently, likely due to liveness probe failures."
+        labels:
+          severity: critical
+          scenario: liveness
