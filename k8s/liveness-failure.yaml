@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: liveness-demo
+  namespace: default
+  labels:
+    app: failure-simulation
+    scenario: liveness-failure
+spec:
+  containers:
+  - name: liveness-container
+    image: busybox
+    command: ["/bin/sh", "-c"]
+    args:
+      - touch /tmp/healthy;
+        echo "Application healthy for 30 seconds...";
+        sleep 30;
+        rm -f /tmp/healthy;
+        echo "Application unhealthy - removed health file";
+        sleep 600
+    livenessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
+      failureThreshold: 3

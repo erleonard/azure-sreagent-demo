@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pending-demo
+  namespace: default
+  labels:
+    app: failure-simulation
+    scenario: pending-unschedulable
+spec:
+  containers:
+  - name: resource-hog
+    image: nginx:alpine
+    resources:
+      requests:
+        cpu: "50"
+        memory: "100Gi"
+      limits:
+        cpu: "50"
+        memory: "100Gi"
